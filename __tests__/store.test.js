@@ -59,6 +59,40 @@ describe("Store", () => {
                 expect(statusCode).toBe(400);
             });
         })
+    });
 
+    describe("delete order route", () => {
+
+        describe("given an existing orderId", ()=>{
+            it("should delete the order and 200 status", async ()=>{
+                
+                const response = await placeStoreOrder(orderPayload);
+                expect(response.status).toBe(200);
+
+                const {statusCode} = await deleteStoreOrder(response.body.id);
+
+                expect(statusCode).toBe(200);
+            })
+        })
+
+        describe("given a non existing orderId", ()=>{
+            it('should return a 404 status', async () => {
+
+                await deleteStoreOrder(orderPayload.id);
+                const {statusCode} = await deleteStoreOrder(orderPayload.id);
+
+                expect(statusCode).toBe(404);
+            });
+        })
+
+        describe("given an invalid orderId", ()=>{
+            it('should return a 400 status', async () => {
+
+                let orderId = '%'
+                const {statusCode, body} = await deleteStoreOrder(orderId);
+
+                expect(statusCode).toBe(400);
+            });
+        })
     });
 })
