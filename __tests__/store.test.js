@@ -95,4 +95,27 @@ describe("Store", () => {
             });
         })
     });
+
+    describe("view inventory route", ()=>{
+        it("should delete the order and return 200", async ()=>{
+            
+            const {status} = await getInventory();
+            expect(status).toBe(200);
+        })
+
+        it("pending count updates correctly", async ()=>{
+            
+            //initial inventory
+            const {body: before} = await getInventory();
+
+            //place new pending order
+            let order =  {...orderPayload};
+            order.complete = false
+            await placeStoreOrder(order);
+
+            //assert pending count has increased
+            const {body: after} = await getInventory();
+            expect(before.pending < after.pending);
+        })
+    })
 })
