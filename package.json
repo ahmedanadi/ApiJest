@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^28.1.1",
+    "jest-html-reporter": "^3.5.0",
     "supertest": "^6.2.3"
   }
 }
