@@ -25,5 +25,16 @@ describe("Store", () => {
                 expect(response.statusCode).toBe(400);
             })
         })
+
+        describe("given the order does exist", ()=>{
+            it("should return a 200 status and the order", async ()=>{
+                
+                const response = await placeStoreOrder(orderPayload);
+                const {statusCode, body} = await getStoreOrder(response.body.id);
+
+                expect(statusCode).toBe(200);
+                expect(body.id).toBe(response.body.id);
+            })
+        })
     })
 })
