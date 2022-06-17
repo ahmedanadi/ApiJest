@@ -37,4 +37,28 @@ describe("Store", () => {
             })
         })
     })
+
+    describe("create order route", () => {
+
+        describe("given the order data is correct", ()=>{
+            it("should return a 200 status and the order", async ()=>{
+                
+                const {statusCode, body} = await placeStoreOrder(orderPayload);
+
+                expect(statusCode).toBe(200);
+                expect(body).toEqual(orderPayload);
+            })
+        })
+
+        describe("given the product data isn't correct", ()=>{
+            it('should return a 400 status', async () => {
+                let order =  {...orderPayload};
+                order.id = '105 OR 1=1'
+                const {statusCode} = await placeStoreOrder(order);
+                
+                expect(statusCode).toBe(400);
+            });
+        })
+
+    });
 })
