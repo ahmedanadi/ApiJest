@@ -9,6 +9,7 @@ Open project in a terminal and run 'npm install'
 ## How to run tests?
 
 To run all the tests type in terminal: jest
+
 To run a specific test type: jest -t 'testName'
 
 ## Test output:
